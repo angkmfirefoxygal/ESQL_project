@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int    @id @default(autoincrement()) // Primary Key, Auto Increment
+  userId    String @unique(map: "user_id") @db.VarChar(50) // 사용자 ID (Unique)
+  phoneNum  String @map("phone_num") @db.VarChar(15) // 전화번호
+  age       Int @map("age")   // 나이
+
+  @@map("users") // 테이블 이름을 "users"로 매핑
+}
+
+
+
